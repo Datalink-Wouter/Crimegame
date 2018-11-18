@@ -18,3 +18,7 @@ Route::get('/', function () {
 Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+// Crime
+Route::get('crimes', 'CrimesController@index')->name('crimes');
+Route::post('crimes', 'CrimesController@perform')->name('perform-crime');
