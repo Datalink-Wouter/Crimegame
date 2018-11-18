@@ -75,6 +75,7 @@
         </nav>
 
         <main class="py-4">
+            @include('alert::bootstrap')
             @yield('content')
         </main>
     </div>

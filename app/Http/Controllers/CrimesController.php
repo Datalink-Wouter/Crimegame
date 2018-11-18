@@ -19,7 +19,7 @@ class CrimesController extends Controller
             'crime' => 'required'
         ]);
 
+        alert()->success('Crime '.$request->crime.' excecuted');
         return redirect(route('crimes'));
     }
 }
-    
