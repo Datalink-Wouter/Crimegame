@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Auth;
+use Date;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -31,5 +33,23 @@ class User extends Authenticatable implements MustVerifyEmail
     public function timers()
     {
         return $this->hasOne('App\UserTimer');
+    }
+
+    public function canPerformCrime()
+    {
+        if (Date::parse(Auth::user()->timers->crime.' +'.env('COOLDOWN_CRIME').' seconds') > Date::now() and !is_null(Auth::user()->timers->crime)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public function getCrimeTime()
+    {
+        $wait_untill = Date::parse(Auth::user()->timers->crime.' +'.env('COOLDOWN_CRIME').' seconds');
+        $now = Date::now();
+        $diff = Date::parse($wait_untill)->diffForHumans($now);
+
+        return $diff;
     }
 }

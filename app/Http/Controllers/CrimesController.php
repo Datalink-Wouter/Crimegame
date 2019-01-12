@@ -13,6 +13,7 @@ class CrimesController extends Controller
 
     public function __construct(CrimeService $CrimeService)
     {
+        $this->middleware('auth');
         $this->CrimeService = $CrimeService;
     }
 
