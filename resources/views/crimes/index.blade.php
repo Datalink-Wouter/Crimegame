@@ -6,7 +6,11 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">Crimes</div>
-                
+                @if(Auth::user()->timers->crime < Date::now())
+                    ok
+                @else
+                    niet ok
+                @endif
                 <div class="card-body">
                     <form method="post" action="{{route('perform-crime')}}">
                         @csrf

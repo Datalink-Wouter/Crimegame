@@ -228,6 +228,7 @@ return [
          * Custom aliases
          */
         'Alert' => Vinkla\Alert\Facades\Alert::class,
+        'Date' => Jenssegers\Date\Date::class,
     ],
 
 ];
