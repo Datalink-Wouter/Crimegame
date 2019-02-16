@@ -20,15 +20,26 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="app">
-        <header>
+    <div id="app" class="container">
+        @include('layouts.partials.header')
 
-        </header>
+        <div class="row">
+            <div class="col-md-3 menu_wrapper">
+                @include('layouts.partials.menu')
+            </div>
+            <div class="col-md-6 game_wrapper">
+                @include('alert::bootstrap')
+                @yield('content')
+            </div>
+            <div class="col-md-3 menu_wrapper">
+                @include('layouts.partials.menu')
+            </div>
+        </div>
 
-        <main class="py-4">
-            @include('alert::bootstrap')
-            @yield('content')
-        </main>
+        <footer>
+            Footer
+        </footer>
+
     </div>
 
     <script src="{{asset('js/app.js')}}"></script>
