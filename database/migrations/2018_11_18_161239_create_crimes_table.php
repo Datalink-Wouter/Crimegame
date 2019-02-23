@@ -17,9 +17,8 @@ class CreateCrimesTable extends Migration
             $table->increments('id');
             $table->smallInteger('type')->default(1);
             $table->string('name');
-            $table->integer('earn_xp_factor');
-            $table->integer('earn_cash_factor');
-            $table->integer('cooldown');
+            $table->integer('earn_xp');
+            $table->integer('earn_cash');
             $table->timestamps();
         });
     }

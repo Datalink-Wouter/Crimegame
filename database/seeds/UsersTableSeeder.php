@@ -17,5 +17,9 @@ class UsersTableSeeder extends Seeder
             'email' => 'admin@admin.com',
             'password' => bcrypt('admin'),
         ]);
+
+        DB::table('user_timers')->insert([
+            'user_id' => '1'
+        ]);
     }
 }

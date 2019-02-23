@@ -19,11 +19,11 @@ class CrimeService
             'crime' => 'required'
         ]);
 
-        if (Date::parse(Auth::user()->timers->crime.' +'.env('COOLDOWN_CRIME').' seconds') > Date::now()) {
-            alert()->warning('You have to wait');
-        } else {
+        if (Auth::user()->canPerformCrime()) {
             Auth::user()->timers->update(['crime' => now()]);
             alert()->success('Crime '.$request->crime.' excecuted');
+        } else {
+            alert()->warning('You have to wait');
         }
     }
 }
