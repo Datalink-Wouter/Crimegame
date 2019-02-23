@@ -21,7 +21,10 @@ class CrimeRepository
                 alert()->warning('Je moet nog even wachten');
             }
             else {
+                Auth::user()->cash += $crime->earn_cash;
+                Auth::user()->xp += $crime->earn_xp;
                 Auth::user()->timers->update(['crime' => now()]);
+                Auth::user()->save();
                 event(new PerformCrime($crime));
                 alert()->success('Crime ' . $request->crime . ' excecuted');
             }

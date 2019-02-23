@@ -35,6 +35,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasOne('App\Models\UserTimer');
     }
 
+    public function resources()
+    {
+        return $this->hasOne('App\Models\UserResource');
+    }
+
     public function canPerform($type)
     {
         if (Date::parse(Auth::user()->timers->$type.' +'.env('COOLDOWN_CRIME').' seconds') > Date::now() and !is_null(Auth::user()->timers->$type)) {
