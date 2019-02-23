@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Services;
+namespace App\Repositories;
 
 use Illuminate\Http\Request;
 use App\Events\PerformCrime;
 use Auth;
 use Date;
 
-class CrimeService
+class CrimeRepository
 {
     public function __construct()
     {

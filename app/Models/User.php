@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -32,7 +32,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function timers()
     {
-        return $this->hasOne('App\UserTimer');
+        return $this->hasOne('App\Models\UserTimer');
     }
 
     public function canPerformCrime()

@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,6 +17,6 @@ class UserTimer extends Model
 
     public function user()
     {
-        $this->belongsTo('App\User');
+        $this->belongsTo('App\Models\User');
     }
 }
