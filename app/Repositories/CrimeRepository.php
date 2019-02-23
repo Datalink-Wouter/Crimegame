@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Events\PerformCrime;
 use Auth;
 use App\Models\Crime;
+use DB;
 
 class CrimeRepository
 {
@@ -21,10 +22,11 @@ class CrimeRepository
                 alert()->warning('Je moet nog even wachten');
             }
             else {
-                Auth::user()->cash += $crime->earn_cash;
-                Auth::user()->xp += $crime->earn_xp;
+                Auth::user()->resources->update([
+                    'cash' => DB::raw('cash + ' . $crime->earn_cash),
+                    'xp' => DB::raw('xp + ' . $crime->earn_xp)
+                ]);
                 Auth::user()->timers->update(['crime' => now()]);
-                Auth::user()->save();
                 event(new PerformCrime($crime));
                 alert()->success('Crime ' . $request->crime . ' excecuted');
             }

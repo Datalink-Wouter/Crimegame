@@ -28,7 +28,7 @@
                             <tr>
                                 <th scope="row"><label for="{{$crime->id}}">{{$i}}</label></th>
                                 <td><label for="{{$crime->id}}">{{$crime->name}}</label></td>
-                                <td><label for="{{$crime->id}}">{{$crime->earn_xp}}xp / €{{$crime->earn_cash}}</label></td>
+                                <td><label for="{{$crime->id}}">{{$crime->earn_xp}}xp / {{AddCurrency($crime->earn_cash)}}</label></td>
                                 <td><input type="radio" name="crime" id="{{$crime->id}}" value="{{$crime->id}}" /></td>
                             </tr>
                         @endforeach
