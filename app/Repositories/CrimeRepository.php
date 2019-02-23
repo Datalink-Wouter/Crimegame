@@ -5,7 +5,7 @@ namespace App\Repositories;
 use Illuminate\Http\Request;
 use App\Events\PerformCrime;
 use Auth;
-use Date;
+use App\Models\Crime;
 
 class CrimeRepository
 {
@@ -13,15 +13,18 @@ class CrimeRepository
     {
     }
 
-    public function perform(Request $request)
+    public function perform($request)
     {
-        $request->validate([
-            'crime' => 'required'
-        ]);
-
-        if (Auth::user()->canPerformCrime()) {
-            Auth::user()->timers->update(['crime' => now()]);
-            alert()->success('Crime '.$request->crime.' excecuted');
+        if (Auth::user()->canPerform('crime')) {
+            $crime = Crime::findOrFail($request->crime);
+            if(Auth::user()->timers->crime > now()){
+                alert()->warning('Je moet nog even wachten');
+            }
+            else {
+                Auth::user()->timers->update(['crime' => now()]);
+                event(new PerformCrime($crime));
+                alert()->success('Crime ' . $request->crime . ' excecuted');
+            }
         } else {
             alert()->warning('You have to wait');
         }
