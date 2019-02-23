@@ -5,7 +5,7 @@
 
 
 <div class="card">
-    <div class="card-header">Crimes</div>
+    <h5 class="card-header">Crimes</h5>
     <div class="card-body">
         @if(!Auth::user()->canPerformCrime())
             {{Auth::user()->getCrimeTime()}}
