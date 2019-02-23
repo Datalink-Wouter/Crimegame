@@ -7,8 +7,8 @@
 <div class="card">
     <h5 class="card-header">Crimes</h5>
     <div class="card-body">
-        @if(!Auth::user()->canPerformCrime())
-            {{Auth::user()->getCrimeTime()}}
+        @if(!Auth::user()->canPerform('crime'))
+            {{Auth::user()->getCooldown('crime')}}
         @else
             <form method="post" action="{{route('perform-crime')}}">
                 @csrf
