@@ -11,8 +11,8 @@
                     </div>
                     <div class="col-md-9">
                         Welkom terug, {{Auth::user()->username}}
-                        <br/>Cach: {{Auth::user()->cash}}
-                        <br/>Bank: {{Auth::user()->bank}}
+                        <br/>Cach: {{Auth::user()->resources->cash}}
+                        <br/>Bank: {{Auth::user()->resources->bank}}
                     </div>
                 </div>
                 <div class="row">

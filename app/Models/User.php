@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -32,21 +32,26 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function timers()
     {
-        return $this->hasOne('App\UserTimer');
+        return $this->hasOne('App\Models\UserTimer');
     }
 
-    public function canPerformCrime()
+    public function resources()
     {
-        if (Date::parse(Auth::user()->timers->crime.' +'.env('COOLDOWN_CRIME').' seconds') > Date::now() and !is_null(Auth::user()->timers->crime)) {
+        return $this->hasOne('App\Models\UserResource');
+    }
+
+    public function canPerform($type)
+    {
+        if (Date::parse(Auth::user()->timers->$type.' +'.env('COOLDOWN_CRIME').' seconds') > Date::now() and !is_null(Auth::user()->timers->$type)) {
             return false;
         } else {
             return true;
         }
     }
 
-    public function getCrimeTime()
+    public function getCooldown($type)
     {
-        $wait_untill = Date::parse(Auth::user()->timers->crime.' +'.env('COOLDOWN_CRIME').' seconds');
+        $wait_untill = Date::parse(Auth::user()->timers->$type.' +'.env('COOLDOWN_CRIME').' seconds');
         $now = Date::now();
         $diff = Date::parse($wait_untill)->diffForHumans($now);
 

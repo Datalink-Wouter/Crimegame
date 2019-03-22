@@ -3,18 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Services\CrimeService;
-use App\Crime;
-use Auth;
+use App\Repositories\CrimeRepository;
+use App\Http\Requests\PerformCrimeRequest;
+use App\Models\Crime;
 
 class CrimesController extends Controller
 {
-    protected $CrimeService;
-
-    public function __construct(CrimeService $CrimeService)
+    public function __construct(CrimeRepository $crimeRepository)
     {
         $this->middleware('auth');
-        $this->CrimeService = $CrimeService;
+        $this->Crime = $crimeRepository;
     }
 
     public function index()
@@ -23,9 +21,9 @@ class CrimesController extends Controller
         return view("crimes.index", compact('crimes'));
     }
 
-    public function perform(Request $request)
+    public function perform(PerformCrimeRequest $request)
     {
-        $this->CrimeService->perform($request);
+        $this->Crime->perform($request);
         return redirect(route('crimes'));
     }
 }
